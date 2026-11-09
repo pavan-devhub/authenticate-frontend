@@ -1,8 +1,11 @@
-// Talks to authenticate-backend, which stores accounts in MySQL, checks
-// credentials and emails one-time codes. This browser only remembers who is
-// logged in and the login history the backend sent with that login, never a
-// password or a code.
+// Talks to authenticate-backend, which stores accounts, checks credentials and
+// emails the one-time codes that confirm a registration. This browser only
+// remembers who is logged in and the login history the backend sent with that
+// login, never a password or a code.
 // The rest of the app only reaches auth through this file.
+//
+// VITE_API_URL is the backend's address. Set it in Vercel's project settings,
+// because Vite builds it into the app.
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8080'
 const SESSION_KEY = 'authenticate.session'
@@ -46,9 +49,9 @@ export function getSession() {
   }
 }
 
-// Registering and logging in each take two steps. The first emails a code and
-// returns a challenge: { challengeId, email, expiresAt, resendAvailableAt }.
-// The second sends the code back with the challengeId.
+// Registering takes two steps. The first emails a code and returns a
+// challenge: { challengeId, email, expiresAt, resendAvailableAt }. The second
+// sends the code back with the challengeId and creates the account.
 
 export function register({ name, email, password }) {
   return post('/api/auth/register', { name, email, password })
@@ -60,18 +63,13 @@ export async function verifyRegistration({ challengeId, code }) {
   return saveSession({ user, loginAttempts: [] })
 }
 
-export function login({ email, password }) {
-  return post('/api/auth/login', { email, password })
-}
-
-export async function verifyLogin({ challengeId, code }) {
-  return saveSession(
-    await post('/api/auth/login/verify', { challengeId, code }),
-  )
-}
-
 export function resendCode(challengeId) {
   return post('/api/auth/otp/resend', { challengeId })
+}
+
+// Logging in takes one step and returns { user, loginAttempts }.
+export async function login({ email, password }) {
+  return saveSession(await post('/api/auth/login', { email, password }))
 }
 
 export function logout() {

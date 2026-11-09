@@ -9,12 +9,11 @@ export default function AuthProvider({ children }) {
     () => ({
       user: session?.user ?? null,
       loginAttempts: session?.loginAttempts ?? [],
-      // These three email a code and return the challenge, without logging in.
-      login: authService.login,
+      // These two email a code and return the challenge, without logging in.
       register: authService.register,
       resendCode: authService.resendCode,
-      async verifyLogin(input) {
-        setSession(await authService.verifyLogin(input))
+      async login(credentials) {
+        setSession(await authService.login(credentials))
       },
       async verifyRegistration(input) {
         setSession(await authService.verifyRegistration(input))
