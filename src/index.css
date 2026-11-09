@@ -1,0 +1,387 @@
+:root {
+  --bg: #f6f5f8;
+  --surface: #ffffff;
+  --text: #5b5666;
+  --text-strong: #15131a;
+  --border: #e2dfe7;
+  --input-border: #8d8899;
+  --accent: #7c3aed;
+  --accent-hover: #6d28d9;
+  --on-accent: #ffffff;
+  --danger: #b42318;
+  --danger-bg: #fef3f2;
+  --success: #067647;
+  --success-bg: #ecfdf3;
+
+  font: 16px/1.5 system-ui, 'Segoe UI', Roboto, sans-serif;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14141a;
+    --surface: #1d1d25;
+    --text: #a8a6b3;
+    --text-strong: #f4f3f6;
+    --border: #32323d;
+    --input-border: #76747f;
+    --accent: #c4b5fd;
+    --accent-hover: #ddd6fe;
+    --on-accent: #1a1333;
+    --danger: #fda29b;
+    --danger-bg: #3b1a1a;
+    --success: #75e0a7;
+    --success-bg: #0b2e1e;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* Keep hidden elements hidden even when a class sets display. */
+[hidden] {
+  display: none !important;
+}
+
+h1,
+p {
+  margin: 0;
+}
+
+h1 {
+  color: var(--text-strong);
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.brand {
+  color: var(--accent);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Login and register */
+
+.auth-page {
+  display: grid;
+  place-items: center;
+  min-height: 100svh;
+  padding: 24px 16px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.auth-card h1 {
+  margin-top: 12px;
+}
+
+.auth-subtitle {
+  margin-top: 4px;
+}
+
+.auth-form {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.auth-footer {
+  margin-top: 24px;
+  font-size: 0.9375rem;
+  text-align: center;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field label {
+  color: var(--text-strong);
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.field input {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  color: var(--text-strong);
+  font: inherit;
+  background: var(--surface);
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+}
+
+.field input[aria-invalid] {
+  border-color: var(--danger);
+}
+
+.field-error {
+  color: var(--danger);
+  font-size: 0.875rem;
+}
+
+.form-error {
+  padding: 10px 12px;
+  color: var(--danger);
+  font-size: 0.9375rem;
+  background: var(--danger-bg);
+  border-radius: 8px;
+}
+
+.form-notice {
+  padding: 10px 12px;
+  color: var(--success);
+  font-size: 0.9375rem;
+  background: var(--success-bg);
+  border-radius: 8px;
+}
+
+/* Emailed code step */
+
+.field input.code-input {
+  font-size: 1.25rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.3em;
+}
+
+.otp-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+
+.link-button {
+  min-height: 44px;
+  padding: 0;
+  color: var(--accent);
+  font: inherit;
+  font-weight: 500;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  text-decoration: underline;
+}
+
+.link-button:disabled {
+  color: var(--text);
+  text-decoration: none;
+  cursor: default;
+}
+
+.button {
+  min-height: 44px;
+  padding: 0 16px;
+  color: var(--on-accent);
+  font: inherit;
+  font-weight: 600;
+  background: var(--accent);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--accent-hover);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.button-secondary {
+  color: var(--text-strong);
+  background: transparent;
+  border-color: var(--input-border);
+}
+
+.button-secondary:hover {
+  background: var(--border);
+}
+
+/* Popup */
+
+.dialog {
+  width: calc(100% - 32px);
+  max-width: 360px;
+  padding: 24px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.dialog::backdrop {
+  background: rgb(0 0 0 / 0.5);
+}
+
+.dialog h2 {
+  margin: 0 0 8px;
+  color: var(--danger);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.dialog .button {
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Dashboard */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar .brand {
+  font-size: 1rem;
+}
+
+.dashboard {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  overflow-wrap: anywhere;
+}
+
+/* Login history */
+
+.history {
+  margin-top: 32px;
+}
+
+.history h2 {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.history-subtitle {
+  margin-top: 4px;
+}
+
+.history-empty,
+.table-wrap {
+  margin-top: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.history-empty {
+  padding: 24px;
+  text-align: center;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.history-table th,
+.history-table td {
+  padding: 12px 16px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.history-table th {
+  color: var(--text-strong);
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+}
+
+.history-table tbody tr + tr td {
+  border-top: 1px solid var(--border);
+}
+
+.history-table td {
+  color: var(--text-strong);
+  font-variant-numeric: tabular-nums;
+}
+
+.status {
+  display: inline-block;
+  padding: 2px 10px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 999px;
+}
+
+.status-success {
+  color: var(--success);
+  background: var(--success-bg);
+}
+
+.status-failed {
+  color: var(--danger);
+  background: var(--danger-bg);
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 24px 20px;
+  }
+
+  .topbar {
+    padding: 12px 16px;
+  }
+
+  .dashboard {
+    padding: 32px 16px;
+  }
+
+  .history-table th,
+  .history-table td {
+    padding: 12px;
+  }
+}
